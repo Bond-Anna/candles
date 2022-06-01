@@ -1,0 +1,81 @@
+@use 'sources/styles/variables.scss' as *;
+@use 'sources/styles/mixins.scss' as mixin;
+
+.container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+
+  .wrapper {
+    width: 100%;
+    height: calc(100% - 142px);
+
+    .header {
+      @include mixin.textStyle($family: $defaultFont, $weight: 500, $size: 19.5px, $height: 29px);
+      display: flex;
+      width: 100%;
+      height: 142px;
+      padding-right: 39px;
+      align-items: center;
+      background: #172060;
+
+      .menu {
+        display: flex;
+        color: #fff;
+
+        li {
+          margin-right: 60px;
+        }
+      }
+
+      .logIn {
+        width: 80px;
+        height: 30px;
+        background-color: #fff000;
+        text-align: center;
+        border-radius: 20px;
+        margin-left: auto;
+      }
+    }
+    .mainBlock {
+      width: 100%;
+      height: 100%;
+      padding: 30px;
+      background-color: #fff;
+
+      .graphHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 50px;
+
+        .chartName {
+          @include mixin.textStyle(
+            $family: $defaultFont,
+            $weight: 500,
+            $size: 19.5px,
+            $height: 29px
+          );
+        }
+        .blockBtn {
+          box-shadow: 0px 4px 15px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        :global {
+          .ant-btn {
+            height: 50px;
+            background: #e5e5e5;
+            color: black;
+            border-radius: 0px;
+            border: none;
+          }
+          .ant-btn-primary {
+            border: none;
+            background: #fff;
+            color: #0018ca;
+          }
+        }
+      }
+    }
+  }
+}
