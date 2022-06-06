@@ -1,14 +1,15 @@
-import React from 'react'
+import { FC } from 'react'
 import { observer } from 'mobx-react'
 import { useStore } from 'stores'
 import Logo from '../logo'
 import styles from './styles.module.scss'
 
-const AsideComponent = observer(() => {
+const AsideComponent: FC = observer(() => {
   const { coinsStore } = useStore()
 
   const handleClick = (id: string, name: string) => {
     coinsStore.getOHLC(id)
+    coinsStore.coinName = id
     coinsStore.chartName = name
   }
 
@@ -17,8 +18,7 @@ const AsideComponent = observer(() => {
       <Logo />
       <p className={styles.title}>Popular pairs</p>
       <ul className={styles.pairsList}>
-        {coinsStore.coinsList.map((coin: any) => (
-          // @ts-ignore
+        {coinsStore.coinsList.map(coin => (
           <li
             key={coin.id}
             role="button"

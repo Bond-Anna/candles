@@ -8,17 +8,29 @@ import LineChart from './Chart/line'
 // style
 import styles from './styles.module.scss'
 
+const btns = [
+  { id: '0', days: 1 },
+  { id: '1', days: 7 },
+  { id: '2', days: 14 },
+  { id: '3', days: 30 },
+]
+
 const Main: React.FC = observer(() => {
   const { coinsStore } = useStore()
 
-  const [type, setType] = useState('candle')
+  const [graphType, setGraphType] = useState<String>('candle')
 
   useEffect(() => {
     coinsStore.getCoins()
   }, [])
 
   const handleGraphBtnClick = (e: any) => {
-    setType(e.currentTarget.innerText.toLowerCase())
+    setGraphType(e.currentTarget.innerText.toLowerCase())
+  }
+
+  const handleGraphDaysBtnClick = (days: number) => {
+    coinsStore.period = days
+    coinsStore.getOHLC(coinsStore.coinName)
   }
 
   return (
@@ -35,32 +47,45 @@ const Main: React.FC = observer(() => {
           <div className={styles.logIn}>log in</div>
         </header>
         <div className={styles.mainBlock}>
-          <div className={styles.graphHeader}>
-            <p className={styles.chartName}>{coinsStore.chartName} - USD</p>
-            <div className={styles.blockBtn}>
-              <Button
-                type="primary"
-                className={styles.primaryBtn}
-                onClick={e => handleGraphBtnClick(e)}
-              >
-                Candle
-              </Button>
-              <Button className={styles.secondBtn} onClick={e => handleGraphBtnClick(e)}>
-                Line
-              </Button>
-            </div>
-            <div className={styles.blockBtn}>
-              <Button type="primary" className={styles.primaryBtn}>
-                1d
-              </Button>
-              <Button className={styles.secondBtn}>3d</Button>
-              <Button className={styles.secondBtn}>7d</Button>
-              <Button className={styles.secondBtn}>14d</Button>
-              <Button className={styles.secondBtn}>1m</Button>
-            </div>
-          </div>
-          {type === 'candle' && <ApexChart />}
-          {type === 'line' && <LineChart />}
+          {coinsStore.chartName === '' ? (
+            <h1>Please select one of pairs</h1>
+          ) : (
+            <>
+              <div className={styles.graphHeader}>
+                <p className={styles.chartName}>{coinsStore.chartName} - USD</p>
+                <div className={styles.blockBtn}>
+                  <Button
+                    type={graphType === 'candle' ? 'primary' : 'default'}
+                    onClick={e => handleGraphBtnClick(e)}
+                  >
+                    Candle
+                  </Button>
+                  <Button
+                    type={graphType === 'line' ? 'primary' : 'default'}
+                    onClick={e => handleGraphBtnClick(e)}
+                  >
+                    Line
+                  </Button>
+                </div>
+                <div className={styles.blockBtn}>
+                  {btns.map((btn, idx) => (
+                    <Button
+                      type={coinsStore.period === btn.days ? 'primary' : undefined}
+                      className={styles.primaryBtn}
+                      key={btn.id}
+                      onClick={() => {
+                        handleGraphDaysBtnClick(btn.days)
+                      }}
+                    >
+                      {btn.days}d
+                    </Button>
+                  ))}
+                </div>
+              </div>
+              {graphType === 'candle' && <ApexChart />}
+              {graphType === 'line' && <LineChart />}
+            </>
+          )}
         </div>
       </div>
     </div>

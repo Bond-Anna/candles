@@ -1,10 +1,10 @@
-import React from 'react'
+import { FC } from 'react'
 import { useStore } from 'stores'
 import dayjs from 'dayjs'
 import Chart from 'react-apexcharts'
 import { observer } from 'mobx-react-lite'
 
-const ApexChart = observer(() => {
+const ApexChart: FC = observer(() => {
   const { coinsStore } = useStore()
 
   const state = {
