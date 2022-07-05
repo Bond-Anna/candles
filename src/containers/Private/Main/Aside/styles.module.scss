@@ -2,23 +2,29 @@
 @use 'sources/styles/mixins.scss' as mixin;
 
 .sidebar {
-  height: 100%;
   min-width: 323px;
-  padding-top: 39px;
-  padding-left: 39px;
+  overflow-y: scroll;
   background: #172060;
-  border-radius: 4px 0 0 4px;
+  border-radius: 0 0 0 4px;
   color: #fff;
 
   .title {
     @include mixin.textStyle($family: $defaultFont, $weight: 500, $size: 19.5px, $height: 29px);
-    margin-top: 92px;
+    padding-left: 39px;
   }
   .pairsList {
     @include mixin.textStyle($family: $defaultFont, $weight: 500, $size: 18.5px, $height: 28px);
     margin-top: 26px;
+
     .pair {
-      padding: 24px 0;
+      cursor: pointer;
+      padding: 24px 39px;
+      padding-right: 0;
+
+      &:hover {
+        color: #000;
+        background-color: #fff;
+      }
     }
   }
 }

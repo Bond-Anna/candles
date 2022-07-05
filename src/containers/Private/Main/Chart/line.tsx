@@ -30,13 +30,8 @@ const LineChart = observer(() => {
   }
 
   return (
-    <div className="app">
-      <div className="row">
-        <div className="mixed-chart">
-          {/* @ts-ignore */}
-          <Chart options={state.options} series={state.series} type="line" />
-        </div>
-      </div>
+    <div className="app" style={{ height: 'calc(100% - 100px)' }}>
+      <Chart options={state.options} series={state.series} type="line" height={'100%'} />
     </div>
   )
 })

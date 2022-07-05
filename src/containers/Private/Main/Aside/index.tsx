@@ -1,7 +1,6 @@
 import { FC } from 'react'
 import { observer } from 'mobx-react'
 import { useStore } from 'stores'
-import Logo from '../logo'
 import styles from './styles.module.scss'
 
 const AsideComponent: FC = observer(() => {
@@ -9,13 +8,12 @@ const AsideComponent: FC = observer(() => {
 
   const handleClick = (id: string, name: string) => {
     coinsStore.getOHLC(id)
-    coinsStore.coinName = id
-    coinsStore.chartName = name
+    coinsStore.setCoinName(id)
+    coinsStore.setChartName(name)
   }
 
   return (
     <aside className={styles.sidebar}>
-      <Logo />
       <p className={styles.title}>Popular pairs</p>
       <ul className={styles.pairsList}>
         {coinsStore.coinsList.map(coin => (

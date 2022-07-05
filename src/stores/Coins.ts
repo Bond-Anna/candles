@@ -37,4 +37,16 @@ export class CoinsStore {
       console.log(error)
     }
   }
+
+  setPeriod(days: number) {
+    this.period = days
+  }
+
+  setCoinName(id: string) {
+    this.coinName = id
+  }
+
+  setChartName(name: string) {
+    this.chartName = name
+  }
 }
