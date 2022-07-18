@@ -3,6 +3,7 @@ import { useStore } from 'stores'
 import { observer } from 'mobx-react-lite'
 import dayjs from 'dayjs'
 import Chart from 'react-apexcharts'
+import { Empty } from 'antd'
 
 const ApexChart: FC = observer(() => {
   const { coinsStore } = useStore()
@@ -40,14 +41,18 @@ const ApexChart: FC = observer(() => {
 
   return (
     <div id="chart" style={{ height: 'calc(100% - 100px)' }}>
-      <Chart
-        // @ts-ignore
-        options={state.options}
-        // @ts-ignore
-        series={state.series}
-        type="candlestick"
-        height={'100%'}
-      />
+      {coinsStore.chartData.length > 0 ? (
+        <Chart
+          // @ts-ignore
+          options={state.options}
+          // @ts-ignore
+          series={state.series}
+          type="candlestick"
+          height={'100%'}
+        />
+      ) : (
+        <Empty />
+      )}
     </div>
   )
 })

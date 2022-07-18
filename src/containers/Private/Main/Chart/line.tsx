@@ -2,6 +2,7 @@ import { observer } from 'mobx-react'
 import { useStore } from 'stores'
 import Chart from 'react-apexcharts'
 import dayjs from 'dayjs'
+import { Empty } from 'antd'
 
 const LineChart = observer(() => {
   const { coinsStore } = useStore()
@@ -31,7 +32,11 @@ const LineChart = observer(() => {
 
   return (
     <div className="app" style={{ height: 'calc(100% - 100px)' }}>
-      <Chart options={state.options} series={state.series} type="line" height={'100%'} />
+      {dataList.length > 0 ? (
+        <Chart options={state.options} series={state.series} type="line" height={'100%'} />
+      ) : (
+        <Empty />
+      )}
     </div>
   )
 })
